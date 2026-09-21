@@ -1,0 +1,20 @@
+from collections import deque
+class Solution:
+    def islandsAndTreasure(self, grid: List[List[int]]) -> None:
+        if not grid:
+            return None
+        row,col=len(grid),len(grid[0])
+        INF=2147483647
+        queue=deque()
+        for r in range(row):
+            for c in range(col):
+                if grid[r][c]==0:
+                    queue.append((r,c))
+        while queue:
+            r,c=queue.popleft()
+            for dr,dc in [(1,0),(-1,0),(0,1),(0,-1)]:
+                nr,nc=r+dr,c+dc
+                if 0<=nr<row and 0<=nc<col:
+                    if grid[nr][nc]==INF:
+                        grid[nr][nc]=grid[r][c]+1
+                        queue.append((nr,nc))
